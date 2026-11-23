@@ -82,12 +82,13 @@ kundli/
 - **Remaining Checks**: Displayed in real-time in the header and form (e.g., `8 of 10 Checks Remaining`).
 - **Limit Enforcement**: Once a user reaches 10 checks, subsequent calculation requests are blocked with an HTTP 403 error alerting them that their limit has been reached. Admins can reset or increase limits at any time.
 
-### 2. Full Data Persistence with Timestamps (`kundli.db`)
-Every Kundli calculation records:
-- **User Contact Info**: User Full Name, Email Address, Mobile Number
+### 2. Full Data Persistence in MongoDB (`kundli_db`)
+Every Kundli calculation records in MongoDB collections (`users` and `kundli_records`):
+- **User Contact Info**: User Full Name, Email Address (indexed & unique), Mobile Number
 - **Seeker Birth Info**: Seeker / Native Name, Birth Date, Exact Time, Timezone, Latitude, Longitude, Ayanamsa, House System
 - **Astrological Results**: Calculated Ascendant sign, Moon sign, Moon Nakshatra & Pada
 - **Timestamp**: Exact local creation timestamp (`YYYY-MM-DD HH:MM:SS`)
+- **Indexes**: Fast indexing on `email`, `mobile`, `user_id`, and `created_at` for high concurrency.
 
 ### 3. Interactive Admin Portal (`/api/admin`)
 - Accessible via the **"🛡️ Admin Panel"** button in the header.
@@ -120,6 +121,22 @@ cd frontend
 npm run dev
 ```
 Open **http://localhost:3000** in your browser.
+
+---
+
+## 🌐 Hostinger VPS KVM 2 Production Deployment
+
+See [DEPLOYMENT_GUIDE.md](file:///d:/Junk/Kundli-API/DEPLOYMENT_GUIDE.md) for full instructions.
+
+### 1-Click Automated Deployment:
+```bash
+# On your Hostinger VPS:
+git clone <repo-url> /opt/Kundli-API
+cd /opt/Kundli-API
+chmod +x deploy.sh
+sudo ./deploy.sh
+```
+This automatically sets up **Docker**, boots **MongoDB 7.0**, builds the **FastAPI + Swiss Ephemeris** container, and launches the application at `http://YOUR_SERVER_IP:8000`.
 
 ---
 

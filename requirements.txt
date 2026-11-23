@@ -1,0 +1,22 @@
+# Core Astrology & Astronomical Calculation Engine
+pyswisseph==2.10.3.2
+pytz==2026.6
+
+# Web Framework & Validation
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.4
+pydantic-core==2.50.5
+
+# Database (MongoDB)
+pymongo==4.20.1
+dnspython==2.9.2
+
+# Production Server & Environment
+gunicorn==27.0.1
+python-dotenv==1.2.4
+
+# Testing & Mocks
+pytest==9.2.0
+httpx==0.28.1
+mongomock==4.3.0

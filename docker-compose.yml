@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. MongoDB Database Service
+  # ----------------------------------------------------------------------------
+  mongo:
+    image: mongo:7.0
+    container_name: kundli-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - kundli_network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ----------------------------------------------------------------------------
+  # 2. FastAPI + Swiss Ephemeris + React Frontend Application
+  # ----------------------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kundli-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_DB_NAME=${MONGO_DB_NAME:-kundli_db}
+      - ADMIN_KEY=${ADMIN_KEY:-admin@kundli2026}
+      - DEFAULT_CHECK_LIMIT=${DEFAULT_CHECK_LIMIT:-10}
+      - HOST=0.0.0.0
+      - PORT=8000
+      - WORKERS=2
+      - ENVIRONMENT=production
+      - CORS_ORIGINS=${CORS_ORIGINS:-*}
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - kundli_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+volumes:
+  mongo_data:
+    driver: local
+
+networks:
+  kundli_network:
+    driver: bridge

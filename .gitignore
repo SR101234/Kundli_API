@@ -1,2 +1,54 @@
-/node_modules
-/.venv
+# Dependencies
+node_modules/
+*/node_modules/
+.venv/
+env/
+venv/
+ENV/
+
+# Python cache & artifacts
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database & local data
+*.db
+*.sqlite3
+kundli.db
+mongo-data/
+
+# Environment and secrets
+.env
+.env.local
+*.log
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database & local data
+*.db
+*.sqlite3
+kundli.db
+mongo-data/
+
+# Environment and secrets
+.env
+.env.local
+*.log
+
+# OS artifacts
+.DS_Store
+Thumbs.db

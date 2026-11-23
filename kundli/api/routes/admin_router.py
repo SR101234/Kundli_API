@@ -12,7 +12,7 @@ from kundli.db.database import (
 )
 
 router = APIRouter(prefix="/api/admin", tags=["Admin Panel"])
-ADMIN_KEY = os.environ.get("ADMIN_KEY", "admin@kundli2026")
+from kundli.config import ADMIN_KEY
 
 
 class AdminLoginRequest(BaseModel):
@@ -73,7 +73,7 @@ def api_admin_records(
 
 @router.post("/users/{user_id}/limit")
 def api_adjust_user_limit(
-    user_id: int,
+    user_id: str,
     req: AdjustLimitRequest,
     x_admin_key: Optional[str] = Header(None)
 ):
