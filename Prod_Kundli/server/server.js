@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -66,9 +67,29 @@ app.use('/api/admin', adminRoutes);
 const clientDistPath = path.resolve(__dirname, '../client/dist');
 app.use(express.static(clientDistPath));
 
+// Explicit root route
+app.get('/', (req, res) => {
+  const indexPath = path.join(clientDistPath, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
+  }
+  return res.json({
+    engine: 'Prod_Kundli MERN Engine',
+    status: 'online',
+    message: `index.html not found at ${clientDistPath}`
+  });
+});
+
 // Catch-all route to serve React Single Page Application (SPA)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(clientDistPath, 'index.html'));
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ detail: 'API endpoint not found' });
+  }
+  const indexPath = path.join(clientDistPath, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
+  }
+  return res.status(404).send('Not Found');
 });
 
 // Start Server

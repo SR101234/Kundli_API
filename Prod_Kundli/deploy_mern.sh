@@ -62,21 +62,15 @@ if ! command -v pm2 &> /dev/null; then
     npm install -g pm2
 fi
 
-# 7. Release port 8001 if occupied by earlier containers or processes
-echo -e "${YELLOW}🔍 Ensuring port 8001 is free...${NC}"
-if command -v docker &> /dev/null && docker ps | grep -q "kundli-app"; then
-    echo -e "${YELLOW}🛑 Stopping earlier kundli-app Docker container on port 8001...${NC}"
-    docker stop kundli-app 2>/dev/null || true
-    docker rm kundli-app 2>/dev/null || true
-fi
+# 7. Release port 8005 if occupied by earlier containers or processes
+echo -e "${YELLOW}🔍 Ensuring port 8005 is free...${NC}"
 if command -v fuser &> /dev/null; then
-    fuser -k 8001/tcp 2>/dev/null || true
+    fuser -k 8005/tcp 2>/dev/null || true
 fi
 
 # 8. Start / Restart PM2 Application
 echo -e "${YELLOW}⚡ Starting / Reloading application in PM2...${NC}"
 pm2 delete prod-kundli-mern 2>/dev/null || true
-pm2 delete kundli-api 2>/dev/null || true
 pm2 start ecosystem.config.js
 pm2 save
 
@@ -95,15 +89,15 @@ if [ -d /etc/nginx/conf.d ]; then
 fi
 
 # 10. Health Check
-echo -e "${YELLOW}⏳ Probing health check at http://127.0.0.1:8001/health...${NC}"
+echo -e "${YELLOW}⏳ Probing health check at http://127.0.0.1:8005/health...${NC}"
 sleep 2
-curl -s http://127.0.0.1:8001/health || true
+curl -s http://127.0.0.1:8005/health || true
 
 echo -e "\n${GREEN}================================================================${NC}"
 echo -e "${GREEN}   ✨ PROD_KUNDLI DEPLOYMENT COMPLETED!                         ${NC}"
 echo -e "${GREEN}================================================================${NC}"
 echo -e "🌐 Live Domain:         ${CYAN}https://kundli-api.bhagyanetram.com${NC}"
-echo -e "🔌 Direct Internal Port:${CYAN}http://127.0.0.1:8001${NC}"
+echo -e "🔌 Direct Internal Port:${CYAN}http://127.0.0.1:8005${NC}"
 echo -e "❤️ Health Status:       ${CYAN}https://kundli-api.bhagyanetram.com/health${NC}"
 echo -e "⚡ PM2 Process Name:    ${YELLOW}prod-kundli-mern${NC}"
 echo -e "${GREEN}================================================================${NC}\n"

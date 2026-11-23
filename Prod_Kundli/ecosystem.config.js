@@ -14,7 +14,7 @@ module.exports = {
       max_memory_restart: "1G",
       env: {
         NODE_ENV: "production",
-        PORT: 8001,
+        PORT: 8005,
         MONGO_URI: "mongodb://127.0.0.1:27017/kundli_db",
         DEFAULT_CHECK_LIMIT: 10
       },
