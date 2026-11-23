@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #fcfaf6;
+    color: #1c1917;
+    margin: 0;
+  }
+  
+  h1, h2, h3, .vedic-title {
+    font-family: 'Cinzel', Georgia, serif;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Custom Card & Vedic Container Styles */
+.card-vedic {
+  background: #ffffff;
+  border: 1px solid #fed7aa;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -2px rgba(180, 83, 9, 0.08);
+  transition: all 0.2s ease;
+}
+
+.card-header-vedic {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border-bottom: 1px solid #fde68a;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+/* Standardized Input Styling */
+input, select {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #d97706 !important;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.18) !important;
+}
+
+/* Constrained Chart SVG Container */
+.chart-container-box {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+}
+
+.chart-container-box svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Table Styles */
+.vedic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.vedic-table th {
+  background-color: #fef3c7;
+  color: #78350f;
+  font-weight: 700;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 2px solid #fde68a;
+  white-space: nowrap;
+}
+
+.vedic-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.vedic-table tr:hover {
+  background-color: #fffbeb;
+}
+
+/* Badges */
+.badge-exalted {
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  display: inline-block;
+}
+
+.badge-debilitated {
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  display: inline-block;
+}
+
+.badge-own {
+  background: #e0e7ff;
+  color: #4338ca;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  display: inline-block;
+}
+
+.badge-friend {
+  background: #fef3c7;
+  color: #92400e;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  display: inline-block;
+}
+
+.badge-retro {
+  background: #ffedd5;
+  color: #c2410c;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  display: inline-block;
+}
+
+.badge-combust {
+  background: #fef2f2;
+  color: #ef4444;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  display: inline-block;
+}
