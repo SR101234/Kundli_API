@@ -1,0 +1,5 @@
+# Core Swiss Ephemeris & Timezone Calculation Engine
+pyswisseph==2.10.3.2
+pytz==2026.6
+pydantic==2.14.4
+pydantic-core==2.50.5
