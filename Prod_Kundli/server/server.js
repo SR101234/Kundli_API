@@ -73,10 +73,10 @@ app.get('*', (req, res) => {
 
 // Start Server
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, HOST, () => {
+  app.listen(PORT, () => {
     console.log(`================================================================`);
-    console.log(`✨ Prod_Kundli MERN Engine running at http://${HOST}:${PORT}`);
-    console.log(`❤️ Health endpoint: http://${HOST}:${PORT}/health`);
+    console.log(`✨ Prod_Kundli MERN Engine running on port ${PORT}`);
+    console.log(`❤️ Health endpoint: http://localhost:${PORT}/health`);
     console.log(`================================================================`);
   });
 }

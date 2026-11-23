@@ -62,13 +62,25 @@ if ! command -v pm2 &> /dev/null; then
     npm install -g pm2
 fi
 
-# 7. Start / Restart PM2 Application
+# 7. Release port 8001 if occupied by earlier containers or processes
+echo -e "${YELLOW}🔍 Ensuring port 8001 is free...${NC}"
+if command -v docker &> /dev/null && docker ps | grep -q "kundli-app"; then
+    echo -e "${YELLOW}🛑 Stopping earlier kundli-app Docker container on port 8001...${NC}"
+    docker stop kundli-app 2>/dev/null || true
+    docker rm kundli-app 2>/dev/null || true
+fi
+if command -v fuser &> /dev/null; then
+    fuser -k 8001/tcp 2>/dev/null || true
+fi
+
+# 8. Start / Restart PM2 Application
 echo -e "${YELLOW}⚡ Starting / Reloading application in PM2...${NC}"
 pm2 delete prod-kundli-mern 2>/dev/null || true
+pm2 delete kundli-api 2>/dev/null || true
 pm2 start ecosystem.config.js
 pm2 save
 
-# 8. Configure Nginx
+# 9. Configure Nginx
 if [ -d /etc/nginx/conf.d ]; then
     echo -e "${YELLOW}🌐 Updating Nginx configuration in /etc/nginx/conf.d/kundli.conf...${NC}"
     cp "$DIR/nginx.conf" /etc/nginx/conf.d/kundli.conf
@@ -82,7 +94,7 @@ if [ -d /etc/nginx/conf.d ]; then
     fi
 fi
 
-# 9. Health Check
+# 10. Health Check
 echo -e "${YELLOW}⏳ Probing health check at http://127.0.0.1:8001/health...${NC}"
 sleep 2
 curl -s http://127.0.0.1:8001/health || true

@@ -7,15 +7,14 @@ module.exports = {
     {
       name: "prod-kundli-mern",
       script: "./server/server.js",
-      instances: 2, // 2 instances match the 2 vCPUs of Hostinger KVM 2
-      exec_mode: "cluster",
+      instances: 1,
+      exec_mode: "fork",
       autorestart: true,
       watch: false,
       max_memory_restart: "1G",
       env: {
         NODE_ENV: "production",
         PORT: 8001,
-        HOST: "127.0.0.1",
         MONGO_URI: "mongodb://127.0.0.1:27017/kundli_db",
         DEFAULT_CHECK_LIMIT: 10
       },
