@@ -59,7 +59,7 @@ docker compose up -d --build
 # 5. Wait for health check
 echo -e "${YELLOW}⏳ Waiting for services to initialize...${NC}"
 for i in {1..12}; do
-    if curl -s http://127.0.0.1:8000/health | grep -q "healthy"; then
+    if curl -s http://127.0.0.1:8001/health | grep -q "healthy"; then
         echo -e "${GREEN}✅ All services are healthy and running!${NC}"
         break
     fi
@@ -73,9 +73,9 @@ ADMIN_KEY_VAL=$(grep ADMIN_KEY .env | cut -d '=' -f2)
 echo -e "\n${GREEN}================================================================${NC}"
 echo -e "${GREEN}   ✨ DEPLOYMENT COMPLETE & OPERATIONAL!                        ${NC}"
 echo -e "${GREEN}================================================================${NC}"
-echo -e "🌐 Web Application:     ${CYAN}http://${SERVER_IP}:8000${NC}"
-echo -e "📖 Swagger API Docs:    ${CYAN}http://${SERVER_IP}:8000/docs${NC}"
-echo -e "❤️ Health Status:       ${CYAN}http://${SERVER_IP}:8000/health${NC}"
+echo -e "🌐 Web Application:     ${CYAN}http://${SERVER_IP}:8001${NC}"
+echo -e "📖 Swagger API Docs:    ${CYAN}http://${SERVER_IP}:8001/docs${NC}"
+echo -e "❤️ Health Status:       ${CYAN}http://${SERVER_IP}:8001/health${NC}"
 echo -e "🛡️ Admin Passcode:       ${YELLOW}${ADMIN_KEY_VAL}${NC}"
 echo -e "💾 Database:            ${CYAN}MongoDB 7.0 (Docker Volume: mongo_data)${NC}"
 echo -e "${GREEN}================================================================${NC}\n"

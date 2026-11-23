@@ -20,7 +20,7 @@ DEFAULT_CHECK_LIMIT = int(os.getenv("DEFAULT_CHECK_LIMIT", "10"))
 # Server & Environment
 ENVIRONMENT = os.getenv("ENVIRONMENT", "production")
 HOST = os.getenv("HOST", "0.0.0.0")
-PORT = int(os.getenv("PORT", "8000"))
+PORT = int(os.getenv("PORT", "8001"))
 WORKERS = int(os.getenv("WORKERS", "2"))
 
 # CORS settings (comma-separated origins or * for all)

@@ -34,14 +34,14 @@ services:
     container_name: kundli-app
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "8001:8001"
     environment:
       - MONGO_URI=mongodb://mongo:27017
       - MONGO_DB_NAME=${MONGO_DB_NAME:-kundli_db}
       - ADMIN_KEY=${ADMIN_KEY:-admin@kundli2026}
       - DEFAULT_CHECK_LIMIT=${DEFAULT_CHECK_LIMIT:-10}
       - HOST=0.0.0.0
-      - PORT=8000
+      - PORT=8001
       - WORKERS=2
       - ENVIRONMENT=production
       - CORS_ORIGINS=${CORS_ORIGINS:-*}
@@ -51,7 +51,7 @@ services:
     networks:
       - kundli_network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
       interval: 30s
       timeout: 5s
       retries: 3

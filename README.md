@@ -110,8 +110,8 @@ The backend runs with Python 3.12+ and includes the built React frontend:
 # From project root:
 .\.venv\Scripts\python.exe run_server.py
 ```
-- Web Application: **http://127.0.0.1:8000**
-- Interactive Swagger / OpenAPI Docs: **http://127.0.0.1:8000/docs**
+- Web Application: **http://127.0.0.1:8001**
+- Interactive Swagger / OpenAPI Docs: **http://127.0.0.1:8001/docs**
 
 ### 2. Frontend Development Server (Optional)
 If you want live hot-reloading for React:
@@ -136,7 +136,7 @@ cd /opt/Kundli-API
 chmod +x deploy.sh
 sudo ./deploy.sh
 ```
-This automatically sets up **Docker**, boots **MongoDB 7.0**, builds the **FastAPI + Swiss Ephemeris** container, and launches the application at `http://YOUR_SERVER_IP:8000`.
+This automatically sets up **Docker**, boots **MongoDB 7.0**, builds the **FastAPI + Swiss Ephemeris** container, and launches the application at `http://YOUR_SERVER_IP:8001`.
 
 ---
 

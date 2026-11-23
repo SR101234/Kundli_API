@@ -117,7 +117,7 @@ export default function App() {
               <span>🛡️</span> Admin Panel
             </button>
             <a
-              href="http://127.0.0.1:8000/docs"
+              href="http://127.0.0.1:8001/docs"
               target="_blank"
               rel="noreferrer"
               className="text-xs bg-amber-950/60 hover:bg-amber-950 px-3 py-2 rounded-lg border border-amber-500/50 text-amber-100 font-semibold transition"

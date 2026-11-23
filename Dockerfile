@@ -51,11 +51,11 @@ RUN useradd -u 1001 -m kundliuser && \
     chown -R kundliuser:kundliuser /app
 USER kundliuser
 
-EXPOSE 8000
+EXPOSE 8001
 
 # Healthcheck probe
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:8001/health || exit 1
 
 # Production command: Gunicorn with Uvicorn workers
 CMD ["gunicorn", "-c", "gunicorn_conf.py", "kundli.api.main:app"]

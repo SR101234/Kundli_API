@@ -3,7 +3,7 @@ import os
 import multiprocessing
 
 # Server socket
-bind = f"{os.getenv('HOST', '0.0.0.0')}:{os.getenv('PORT', '8000')}"
+bind = f"{os.getenv('HOST', '0.0.0.0')}:{os.getenv('PORT', '8001')}"
 
 # Worker processes (Hostinger KVM 2 has 2 vCPUs; 2-4 workers is optimal)
 workers = int(os.getenv("WORKERS", "2"))

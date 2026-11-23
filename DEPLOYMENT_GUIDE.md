@@ -74,7 +74,7 @@ docker compose up -d --build
 ### 3. Check Container Health
 ```bash
 docker compose ps
-curl -i http://localhost:8000/health
+curl -i http://localhost:8001/health
 ```
 
 Output:
