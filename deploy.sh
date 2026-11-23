@@ -57,9 +57,15 @@ docker compose down --remove-orphans || true
 docker compose up -d --build
 
 # 5. Wait for health check
-echo -e "${YELLOW}⏳ Waiting for services to initialize...${NC}"
+PORT_VAL=$(grep -E "^PORT=" .env 2>/dev/null | cut -d '=' -f2 || echo "")
+if [ -z "$PORT_VAL" ]; then
+    PORT_VAL=$(grep -E '^[[:space:]]*-[[:space:]]*"[0-9]+:[0-9]+"' docker-compose.yml 2>/dev/null | head -n1 | sed -E 's/.*"([0-9]+):[0-9]+".*/\1/' || echo "8001")
+fi
+PORT_VAL=${PORT_VAL:-8001}
+
+echo -e "${YELLOW}⏳ Waiting for services to initialize on port ${PORT_VAL}...${NC}"
 for i in {1..12}; do
-    if curl -s http://127.0.0.1:8001/health | grep -q "healthy"; then
+    if curl -s http://127.0.0.1:${PORT_VAL}/health | grep -q "healthy"; then
         echo -e "${GREEN}✅ All services are healthy and running!${NC}"
         break
     fi
@@ -73,9 +79,9 @@ ADMIN_KEY_VAL=$(grep ADMIN_KEY .env | cut -d '=' -f2)
 echo -e "\n${GREEN}================================================================${NC}"
 echo -e "${GREEN}   ✨ DEPLOYMENT COMPLETE & OPERATIONAL!                        ${NC}"
 echo -e "${GREEN}================================================================${NC}"
-echo -e "🌐 Web Application:     ${CYAN}http://${SERVER_IP}:8001${NC}"
-echo -e "📖 Swagger API Docs:    ${CYAN}http://${SERVER_IP}:8001/docs${NC}"
-echo -e "❤️ Health Status:       ${CYAN}http://${SERVER_IP}:8001/health${NC}"
+echo -e "🌐 Web Application:     ${CYAN}http://${SERVER_IP}:${PORT_VAL}${NC}"
+echo -e "📖 Swagger API Docs:    ${CYAN}http://${SERVER_IP}:${PORT_VAL}/docs${NC}"
+echo -e "❤️ Health Status:       ${CYAN}http://${SERVER_IP}:${PORT_VAL}/health${NC}"
 echo -e "🛡️ Admin Passcode:       ${YELLOW}${ADMIN_KEY_VAL}${NC}"
 echo -e "💾 Database:            ${CYAN}MongoDB 7.0 (Docker Volume: mongo_data)${NC}"
 echo -e "${GREEN}================================================================${NC}\n"
